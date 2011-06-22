@@ -1,4 +1,4 @@
-function feq = my_feq(i, rho, ux, uy)
+function feq = pois_feq(i, rho, ux, uy)
 
     global w;
     global cs2;
