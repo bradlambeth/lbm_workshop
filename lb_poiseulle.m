@@ -4,6 +4,8 @@
 clear all
 
 % constants
+global nw;
+nw = 9;
 nx = 31;
 ny = 3;
 niter = 4000;
@@ -37,8 +39,8 @@ global uy;
 global fin;
 
 % initial conditions
-fin = zeros(9, nx, ny);
-for i=1:9
+fin = zeros(nw, nx, ny);
+for i=1:nw
     fin(i,:,:) = my_feq(i, ones(Rho, nx, ny), 0, 0);
 end
 
@@ -48,7 +50,7 @@ for i=1:niter
     [rho, ux, uy] = my_rho(rho, ux, uy);
 
     % collision
-    for i=1:9
+    for i=1:nw
         feq(i, :, :) = my_feq(i, rho, ux, uy);
         fout(i,:,:) = fin(i,:,:) + (1/tau) * (feq(i, :, :) - fin(i,:,:)) + (w(i)/cs2)*(cx(i)*F(1) + cy(i)*F(2));
 
