@@ -1,4 +1,4 @@
-function [rho, ux, uy] = my_rho(rho, ux, uy)
+function [rho, ux, uy] = pois_rho(rho, ux, uy)
     global fin;
     global cx;
     global cy;

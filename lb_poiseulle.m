@@ -13,12 +13,13 @@ niter = 4000;
 global tau;
 global cs2;
 global F;
+global rho0;
 tau = 1;
 cs2 = 1.0/3.0;
-Rho = 1;
 F = [0, 0.0002];
+rho0 = 1;
 nu = cs2 * (tau - 0.5);
-mu = nu * Rho;
+mu = nu * rho0;
 
 % lattice weights
 w0 = 4.0/9.0;
@@ -41,13 +42,13 @@ global fin;
 % initial conditions
 fin = zeros(nw, nx, ny);
 for i=1:nw
-    fin(i,:,:) = pois_feq(i, ones(Rho, nx, ny), 0, 0);
+    fin(i,:,:) = pois_feq(i, ones(1, nx, ny), 0, 0);
 end
 
 % iterate to equilibrium
-for i=1:niter
+for j=1:niter
     % calculate macroscopic field
-    [rho, ux, uy] = my_rho(rho, ux, uy);
+    [rho, ux, uy] = pois_rho(rho, ux, uy);
 
     % collision
     for i=1:nw
