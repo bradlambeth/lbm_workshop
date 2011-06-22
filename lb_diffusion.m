@@ -52,8 +52,7 @@ delta = nx - 1;
 dx = delta/(nx - 1);
 x = 0:dx:delta;
 
-% t = 5000 for early solution
-rho_ana = erfc(x./(2*sqrt(D*1000)));
+rho_ana = erfc(x./(2*sqrt(D*niter)));
 
 % plot solutions
 figure(1);
