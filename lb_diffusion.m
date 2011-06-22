@@ -28,7 +28,6 @@ fin = zeros(nw, nx, ny);
 for i=1:nw
     fin(i, :, :) = w(i) * rho(1, :, :);
 end
-rho = sum(fin);
 
 % iterate to equilibrium
 for j = 1:niter
@@ -38,20 +37,14 @@ for j = 1:niter
     for i = 1:nw
         % collision
         feq(i, :, :) = w(i) * rho(1, :, :);
-    end
-
-    for i = 1:nw
         fout(i, :, :) = fin(i, :, :) + (1.0/tau) * (feq(i, :, :) - fin(i, :, :));
-    end
-
-    for i = 1:nw
         % streaming
         fin(i, :, :) = circshift(fout(i, :, :), [0, cx(i), cy(i)]);
     end
 
     % boundary conditions
-    fin(2, 1, :) = ones(1, 1, ny) - fin(1, 1, :) - fin(3, 1, :) - fin(4, 1, :) - fin(5, 1, :);
-    fin(4, nx, :) = zeros(1, 1, ny) - fin(1, nx, :) - fin(2, nx, :) - fin(3, nx, :) - fin(5, nx, :);
+    fin(2, 1, :) = ones(1, 1, ny) - sum(fin([1, 3, 4, 5], 1, :));
+    fin(4, nx, :) = zeros(1, 1, ny) - sum(fin([1, 2, 3, 5], nx, :));
 end
 
 % Analytical comparison
