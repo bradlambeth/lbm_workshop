@@ -74,3 +74,5 @@ plot(x, uy_ana, 'r o');
 plot(x, uy(1,:,ny), 'b +');
 xlabel('x', 'FontSize', 16);
 ylabel('uy', 'FontSize', 16);
+legend('Analytical', 'LBM');
+grid on;
